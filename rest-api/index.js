@@ -8,6 +8,7 @@ const createError = require('http-errors');
 const app = express();
 
 const bookRoute = require("./node-backend/routes/book.routes");
+const evntRoute = require("./node-backend/routes/event.routes");
 const mongoDb = require('./database/db');
 
 mongoose.Promise = global.Promise;
@@ -45,3 +46,10 @@ app.use(function (err, req, res, next) {
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
 });
+
+// cron.schedule('0 0 * * * *', () => {
+//     // This function will be executed at midnight
+//     // Add your cron job logic here
+//     console.log('Cron job executed ');
+//   });
+;

@@ -17,6 +17,8 @@ const routes: Routes = [
   {
     path:'edit-book/:id', component:BookDetailComponent
   }
+
+  
 ];
   
 @NgModule({

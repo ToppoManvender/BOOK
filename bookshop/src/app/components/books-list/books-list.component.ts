@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from 'src/app/service/crud.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-books-list',
@@ -8,7 +9,7 @@ import { CrudService } from 'src/app/service/crud.service';
 })
 export class BooksListComponent implements OnInit {
   Books:any =[];
-  constructor(private crudApi:CrudService){ }
+  constructor(private crudApi:CrudService, private toastr: ToastrService){ }
 
   ngOnInit(): void {
     this.crudApi.getBooks().subscribe(res =>{
@@ -21,8 +22,8 @@ export class BooksListComponent implements OnInit {
     if(window.confirm('Are you sure you want to delete this data')){
       this.crudApi.deleteBook(id).subscribe(res => {
         this.Books.splice(i, 1);
+        this.toastr.success('Data deleted successfully!', 'Success');
       })
     }
   }
-
 }

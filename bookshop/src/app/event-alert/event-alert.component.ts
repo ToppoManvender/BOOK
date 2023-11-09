@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-event-alert',
@@ -9,11 +10,11 @@ export class EventAlertComponent {
   upcomingEvents: any[] = [
     {
       name: 'Book Release: "Mystery of the Lost Library"',
-      dateTime: new Date('2023-11-06T17:03:00')
+      dateTime: new Date('2023-11-09T16:24:00')
     },
     {
       name: 'Author Meet and Greet: Chetan Bhagat',
-      dateTime: new Date('2023-11-19T16:30:00')
+      dateTime: new Date('2023-11-19T15:00:00')
     },
     {
       name: 'Book Signing: Jane Smith',
@@ -51,7 +52,7 @@ export class EventAlertComponent {
     }
   ];
 
-  constructor() {
+  constructor(private toastr: ToastrService) {
     this.checkEvents();
   }
 
@@ -66,6 +67,10 @@ export class EventAlertComponent {
       this.recentEvents = this.recentEvents.concat(overlapping);
 
       this.recentEvents.sort((a, b) => b.dateTime - a.dateTime);
+
+      if (overlapping.length > 0) {
+        this.toastr.warning('The Event is Going to Start', 'Event Alert');
+      }
     }, 1);
   }
 }

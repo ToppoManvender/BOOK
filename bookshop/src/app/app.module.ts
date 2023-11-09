@@ -9,6 +9,12 @@ import { BookDetailComponent } from './components/book-detail/book-detail.compon
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { NotificationComponent } from './notification/notification.component';
 import { EventAlertComponent } from './event-alert/event-alert.component';
+import { AddEventComponent } from './components/add-event/add-event.component';
+import { EventDetailComponent } from './components/event-detail/event-detail.component';
+import { EventListComponent } from './components/event-list/event-list.component';
+import {ToastrModule} from 'ngx-toastr'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 const appRoutes: Routes = [
   { path: 'notifications', component: NotificationComponent },
@@ -16,7 +22,6 @@ const appRoutes: Routes = [
   { path: 'add-book', component: AddBookComponent },
   { path: 'books-list', component: BooksListComponent },
   { path: 'edit-book/:id', component: BookDetailComponent }, 
-  // Define other routes as needed
 ];
 
 @NgModule({
@@ -26,14 +31,21 @@ const appRoutes: Routes = [
     BookDetailComponent,
     BooksListComponent,
     NotificationComponent,
-    EventAlertComponent
+    EventAlertComponent,
+    AddEventComponent,
+    EventDetailComponent,
+    EventListComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes), // Add this line for routing
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

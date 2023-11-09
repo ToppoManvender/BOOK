@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/service/crud.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-detail',
@@ -16,7 +17,8 @@ export class BookDetailComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone,
     private activatedRoute: ActivatedRoute,
-    private crudApi: CrudService) {
+    private crudApi: CrudService,
+    private toastr: ToastrService) {
     this.getId = this.activatedRoute.snapshot.paramMap.get('id');
     this.crudApi.getBook(this.getId).subscribe(res => {
       this.updateForm.setValue({
@@ -37,6 +39,7 @@ export class BookDetailComponent implements OnInit {
   onUpdate() {
     this.crudApi.updateBook(this.getId, this.updateForm.value).subscribe(res => {
       console.log("updated");
+      this.toastr.success('Data updated successfully!', 'Success');
       this.ngZone.run(() => {
         this.router.navigateByUrl('/books-list');
       });

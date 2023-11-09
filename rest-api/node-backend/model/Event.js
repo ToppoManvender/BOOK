@@ -1,19 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 let Event = new Schema({
-    name:{
-        type:String,
+    name: {
+        type: String,
     },
-    date:{
-        type:Date,
+    dateTime: {
+        type: Date, 
     },
-    time:{
-        type:time,
-    }
 },
 {
-  collection:'books'
-})
+    collection: 'Event'
+});
 
-
-module.exports = mongoose.model('Event',Event)
+module.exports = mongoose.model('Event', Event);
