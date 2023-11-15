@@ -6,7 +6,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                  
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
                     <th scope="col">Author</th>
@@ -15,13 +15,13 @@
             </thead>
             <tbody>
                 <tr *ngFor="let book of Books; let i=index">
-                    <th scope="row">{{book._id}}</th>
+                   
                     <td>{{book.name}}</td>
                     <td>{{book.price}}</td>
                     <td>{{book.author}}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-primary" [routerLink]="'/edit-book/' + book._id">Edit</button>
-                        <button class="btn btn-sm btn-danger" (click)="delete(book._id, 1)">Delete</button>
+                        <button class="btn btn-sm btn-primary mr-2" [routerLink]="'/edit-book/' + book._id">Edit</button>
+                        <button class="btn btn-sm btn-danger ml-2" (click)="delete(book._id, 1)">Delete</button>
                     </td>
                 </tr>
             </tbody>

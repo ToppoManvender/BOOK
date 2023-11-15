@@ -22,6 +22,8 @@ const appRoutes: Routes = [
   { path: 'add-book', component: AddBookComponent },
   { path: 'books-list', component: BooksListComponent },
   { path: 'edit-book/:id', component: BookDetailComponent }, 
+  { path: 'event-list', component: EventListComponent  },
+  { path: 'add-event', component: AddEventComponent  },
 ];
 
 @NgModule({
@@ -38,7 +40,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes), // Add this line for routing
+    RouterModule.forRoot(appRoutes), 
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,

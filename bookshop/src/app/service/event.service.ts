@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Event } from './event'; // Make sure to import the Event model
+import { Event } from './event'; 
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -8,7 +8,7 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class EventService {
-  private REST_API: string = "http://localhost:8000/api"; // Your API endpoint for events
+  private REST_API: string = "http://localhost:8000/alert"; 
   private httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private httpClient: HttpClient) {}

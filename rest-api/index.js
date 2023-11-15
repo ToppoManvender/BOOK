@@ -8,8 +8,8 @@ const createError = require('http-errors');
 const app = express();
 
 const bookRoute = require("./node-backend/routes/book.routes");
-const evntRoute = require("./node-backend/routes/event.routes");
 const mongoDb = require('./database/db');
+const eventRoute = require('./node-backend/routes/event.routes');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoDb.db, {
@@ -27,29 +27,22 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'dist/Bookstore')));
 app.use('/api', bookRoute);
+app.use('/alert', eventRoute);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
     console.log('Listening on Port: ' + port);
 });
 
-app.use((req, res, next) => {
+app.use((_req, _res, next) => {
     next(createError(404)); 
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/Bookstore/index.html'));
-});
 
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
     console.error(err.message);
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
 });
 
-// cron.schedule('0 0 * * * *', () => {
-//     // This function will be executed at midnight
-//     // Add your cron job logic here
-//     console.log('Cron job executed ');
-//   });
 ;

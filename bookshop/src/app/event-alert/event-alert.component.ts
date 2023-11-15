@@ -10,7 +10,7 @@ export class EventAlertComponent {
   upcomingEvents: any[] = [
     {
       name: 'Book Release: "Mystery of the Lost Library"',
-      dateTime: new Date('2023-11-09T16:24:00')
+      dateTime: new Date('2023-11-11T23:24:00')
     },
     {
       name: 'Author Meet and Greet: Chetan Bhagat',
@@ -68,9 +68,9 @@ export class EventAlertComponent {
 
       this.recentEvents.sort((a, b) => b.dateTime - a.dateTime);
 
-      if (overlapping.length > 0) {
-        this.toastr.warning('The Event is Going to Start', 'Event Alert');
-      }
+      // if (overlapping.length > 0) {
+      //   this.toastr.warning('The Event is Going to Start', 'Event Alert');
+      // }
     }, 1);
   }
 }
