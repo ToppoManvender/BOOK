@@ -12,18 +12,17 @@ import { EventAlertComponent } from './event-alert/event-alert.component';
 import { AddEventComponent } from './components/add-event/add-event.component';
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
 import { EventListComponent } from './components/event-list/event-list.component';
-import {ToastrModule} from 'ngx-toastr'
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 
 const appRoutes: Routes = [
   { path: 'notifications', component: NotificationComponent },
   { path: 'event-alert', component: EventAlertComponent },
   { path: 'add-book', component: AddBookComponent },
   { path: 'books-list', component: BooksListComponent },
-  { path: 'edit-book/:id', component: BookDetailComponent }, 
-  { path: 'event-list', component: EventListComponent  },
-  { path: 'add-event', component: AddEventComponent  },
+  { path: 'edit-book/:id', component: BookDetailComponent },
+  { path: 'event-list', component: EventListComponent },
+  { path: 'add-event', component: AddEventComponent },
 ];
 
 @NgModule({
@@ -36,20 +35,18 @@ const appRoutes: Routes = [
     EventAlertComponent,
     AddEventComponent,
     EventDetailComponent,
-    EventListComponent
+    EventListComponent,
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes), 
+    RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot({
-
-    })
+    ToastrModule.forRoot({}),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

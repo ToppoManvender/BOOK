@@ -1,10 +1,72 @@
-import { Component } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EventService } from 'src/app/service/event.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.component.html',
-  styleUrls: ['./event-detail.component.css']
+  styleUrls: ['./event-detail.component.css'],
 })
-export class EventDetailComponent {
+export class EventDetailComponent implements OnInit {
+  eventId: any;
+  updateForm!: FormGroup;
 
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private ngZone: NgZone,
+    private activatedRoute: ActivatedRoute,
+    private eventService: EventService,
+    private toastr: ToastrService
+  ) {
+    this.eventId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.updateForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      dateTime: ['', [Validators.required]],
+    });
+
+    this.eventService.getEvent(this.eventId).subscribe((res) => {
+      this.updateForm.setValue({
+        name: res['name'],
+        dateTime: res['dateTime'],
+      });
+    });
+  }
+
+  ngOnInit(): void {}
+
+  onUpdate(): void {
+    if (this.updateForm.valid) {
+      this.eventService
+        .updateEvent(this.eventId, this.updateForm.value)
+        .subscribe(
+          (res) => {
+            console.log('updated');
+            this.toastr.success('Data updated successfully!', 'Success', {
+              positionClass: 'toast-bottom-right',
+              closeButton: true,
+              timeOut: 5000,
+            });
+            this.ngZone.run(() => {
+              this.router.navigateByUrl('/event-list');
+            });
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+    } else {
+      this.showAlert();
+    }
+  }
+
+  showAlert(): void {
+    this.toastr.error('Please fill in all the required fields.', 'Error', {
+      positionClass: 'toast-bottom-right',
+      closeButton: true,
+      timeOut: 5000,
+    });
+  }
 }

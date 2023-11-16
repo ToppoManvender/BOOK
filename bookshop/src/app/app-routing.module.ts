@@ -9,38 +9,48 @@ import { EventDetailComponent } from './components/event-detail/event-detail.com
 
 const bookRoutes: Routes = [
   {
-    path: '', redirectTo: 'add-book', pathMatch: 'full'
+    path: '',
+    redirectTo: 'add-book',
+    pathMatch: 'full',
   },
   {
-    path: 'books-list', component: BooksListComponent
+    path: 'books-list',
+    component: BooksListComponent,
   },
   {
-    path: 'add-book', component: AddBookComponent
+    path: 'add-book',
+    component: AddBookComponent,
   },
   {
-    path: 'edit-book/:id', component: BookDetailComponent
-  }
+    path: 'edit-book/:id',
+    component: BookDetailComponent,
+  },
 ];
 
 const eventRoutes: Routes = [
   {
-    path: '', redirectTo: 'add-event', pathMatch: 'full'
+    path: '',
+    redirectTo: 'add-event',
+    pathMatch: 'full',
   },
   {
-    path: 'event-list', component: EventListComponent
+    path: 'event-list',
+    component: EventListComponent,
   },
   {
-    path: 'add-event', component: AddEventComponent
+    path: 'add-event',
+    component: AddEventComponent,
   },
   {
-    path: 'edit-event/:id', component: EventDetailComponent
-  }
+    path: 'edit-event/:id',
+    component: EventDetailComponent,
+  },
 ];
 
 const routes: Routes = [...bookRoutes, ...eventRoutes];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

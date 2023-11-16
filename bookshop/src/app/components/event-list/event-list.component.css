@@ -1,63 +1,63 @@
 .list-container {
-    display: flex;
+  display: flex;
 }
 
 .events-container {
-    display: flex;
-    flex: 1;
+  display: flex;
+  flex: 1;
 }
 
-.left-column, .right-column {
-    flex: 1;
-    margin-right: 30px;
+.left-column,
+.right-column {
+  flex: 1;
+  margin-right: 30px;
 }
 
 .upcoming-events-heading {
-    color: blue;
-    margin-bottom: 10px; 
-    margin-left: 15px;
+  color: blue;
+  margin-bottom: 10px;
+  margin-left: 15px;
 }
 
 .recent-events-heading {
-    color: green;
-    margin-left: 15px;
-    
+  color: green;
+  margin-left: 15px;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .event {
-    margin-bottom: 10px;
-    position: relative;
-    margin-left: 15px;
+  margin-bottom: 10px;
+  position: relative;
+  margin-left: 15px;
 }
 
 .event-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
-    left: -15px;
-    top: 50%;
-    transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .event::before {
-    content: '\2022'; 
-    font-size: 1.5em; 
-    color: #333; 
-    margin-right: 10px; 
+  content: "\2022";
+  font-size: 1.5em;
+  color: #333;
+  margin-right: 10px;
 }
 
 a {
-    text-decoration: none;
-    color: #333;
+  text-decoration: none;
+  color: #333;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }

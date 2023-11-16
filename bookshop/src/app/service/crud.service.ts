@@ -1,21 +1,31 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Book } from './book';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from './environment.local';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CrudService {
-  private REST_API: string = "http://localhost:8000/api"; 
-  private httpHeaders = new HttpHeaders().set('Content-Type', 'application/json'); 
+  private REST_API: string = environment.apiUrlBook;
+  private httpHeaders = new HttpHeaders().set(
+    'Content-Type',
+    'application/json'
+  );
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   AddBook(data: Book): Observable<any> {
     const API_URL = `${this.REST_API}/add-book`;
-    return this.httpClient.post(API_URL, data, { headers: this.httpHeaders }).pipe(catchError(this.handleError));
+    return this.httpClient
+      .post(API_URL, data, { headers: this.httpHeaders })
+      .pipe(catchError(this.handleError));
   }
 
   getBooks() {
@@ -32,16 +42,16 @@ export class CrudService {
 
   updateBook(id: any, data: any): Observable<any> {
     let API_URL = `${this.REST_API}/update-book/${id}`;
-    return this.httpClient.put(API_URL, data, { headers: this.httpHeaders }).pipe(
-      catchError(this.handleError)
-    );
+    return this.httpClient
+      .put(API_URL, data, { headers: this.httpHeaders })
+      .pipe(catchError(this.handleError));
   }
 
   deleteBook(id: any): Observable<any> {
     let API_URL = `${this.REST_API}/delete-book/${id}`;
-    return this.httpClient.delete(API_URL, { headers: this.httpHeaders }).pipe(
-      catchError(this.handleError)
-    );
+    return this.httpClient
+      .delete(API_URL, { headers: this.httpHeaders })
+      .pipe(catchError(this.handleError));
   }
 
   handleError(error: HttpErrorResponse) {
@@ -51,7 +61,7 @@ export class CrudService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
     }
-    console.error(errorMessage); 
+    console.error(errorMessage);
     return throwError(errorMessage);
   }
 }
