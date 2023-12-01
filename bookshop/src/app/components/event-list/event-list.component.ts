@@ -11,7 +11,6 @@ import { interval, takeWhile } from 'rxjs';
 export class EventListComponent implements OnInit {
   upcomingEvents: any[] = [];
   recentEvents: any[] = [];
-  events: any;
 
   constructor(
     private eventService: EventService,
@@ -19,10 +18,13 @@ export class EventListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.eventService.getEvents().subscribe((res) => {
-      console.log('response', res);
-      const now = new Date();
+    this.loadEvents();
+    this.checkUpcomingEvents();
+  }
 
+  loadEvents() {
+    this.eventService.getEvents().subscribe((res) => {
+      const now = new Date();
       res.sort(
         (a: any, b: any) =>
           new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()
@@ -32,32 +34,53 @@ export class EventListComponent implements OnInit {
         (event: any) => new Date(event.dateTime) > now
       );
 
-      this.recentEvents = res.filter(
+      const newRecentEvents = res.filter(
         (event: any) => new Date(event.dateTime) <= now
       );
 
-      this.recentEvents.sort(
-        (a: any, b: any) =>
-          new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime()
-      );
-
-      this.checkUpcomingEvents();
+      if (newRecentEvents.length > 0) {
+        this.recentEvents = [...newRecentEvents, ...this.recentEvents].sort(
+          (a: any, b: any) =>
+            new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime()
+        );
+      }
     });
   }
 
   checkUpcomingEvents() {
-    interval(60000)
+    interval(1000)
       .pipe(takeWhile(() => !this.allEventsStarted()))
       .subscribe(() => {
         const now = new Date();
+        const updatedUpcomingEvents: any[] = [];
+        const updatedRecentEvents: any[] = [];
+
         for (const event of this.upcomingEvents) {
           const eventTime = new Date(event.dateTime);
-          const timeDifference = eventTime.getTime() - now.getTime();
-          const minutesDifference = timeDifference / (1000 * 60);
 
-          if (minutesDifference > 0 && minutesDifference <= 10) {
-            this.showNotification(event.name);
+          if (eventTime <= now) {
+            this.showNotification(` Event "${event.name}" has been Started`, 'Event Started');
+            updatedRecentEvents.push(event);
+          } else {
+            updatedUpcomingEvents.push(event);
+
+            const timeDifference = (eventTime.getTime() - now.getTime()) / (1000 * 60);
+
+            if (Math.abs(timeDifference - 10) <= 0.001) {
+              this.showNotification(`The event "${event.name}" is starting in 10 minutes!`, 'Event Reminder');
+            }
           }
+        }
+
+        this.upcomingEvents = updatedUpcomingEvents;
+        if (updatedRecentEvents.length > 0) {
+          this.recentEvents = [
+            ...updatedRecentEvents,
+            ...this.recentEvents,
+          ].sort(
+            (a: any, b: any) =>
+              new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime()
+          );
         }
       });
   }
@@ -69,27 +92,34 @@ export class EventListComponent implements OnInit {
     );
   }
 
-  showNotification(eventName: string) {
-    this.toastr.success(
-      `The event "${eventName}" is starting soon!`,
-      'Event Starting',
-      {
-        positionClass: 'toast-bottom-right',
-        closeButton: true,
-        timeOut: 10000,
-      }
-    );
+  showNotification(message: string, title: string) {
+    if (Notification.permission === 'granted') {
+      new Notification(title, { body: message });
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          new Notification(title, { body: message });
+        }
+      });
+    }
   }
 
   delete(id: any, i: any) {
-    console.log(id);
     if (window.confirm('Are you sure you want to delete this event?')) {
-      this.eventService.deleteEvent(id).subscribe((res) => {
-        const index = this.events.findIndex((event: any) => event._id === id);
+      this.eventService.deleteEvent(id).subscribe(() => {
+        const index = this.upcomingEvents.findIndex(
+          (event: any) => event._id === id
+        );
+
         if (index !== -1) {
-          this.events.splice(index, 1);
-          this.toastr.success('Event deleted successfully!', 'Success');
+          this.upcomingEvents.splice(index, 1);
         }
+
+        this.toastr.success('Event deleted successfully!', 'Success', {
+          positionClass: 'toast-bottom-right',
+          closeButton: true,
+          timeOut: 10000,
+        });
       });
     }
   }

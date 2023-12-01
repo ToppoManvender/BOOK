@@ -7,8 +7,6 @@ import { AppComponent } from './app.component';
 import { AddBookComponent } from './components/add-book/add-book.component';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { BooksListComponent } from './components/books-list/books-list.component';
-import { NotificationComponent } from './notification/notification.component';
-import { EventAlertComponent } from './event-alert/event-alert.component';
 import { AddEventComponent } from './components/add-event/add-event.component';
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
 import { EventListComponent } from './components/event-list/event-list.component';
@@ -16,13 +14,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
-  { path: 'notifications', component: NotificationComponent },
-  { path: 'event-alert', component: EventAlertComponent },
   { path: 'add-book', component: AddBookComponent },
   { path: 'books-list', component: BooksListComponent },
   { path: 'edit-book/:id', component: BookDetailComponent },
   { path: 'event-list', component: EventListComponent },
   { path: 'add-event', component: AddEventComponent },
+  { path: 'edit-event/ :id', component: EventDetailComponent },
 ];
 
 @NgModule({
@@ -31,8 +28,6 @@ const appRoutes: Routes = [
     AddBookComponent,
     BookDetailComponent,
     BooksListComponent,
-    NotificationComponent,
-    EventAlertComponent,
     AddEventComponent,
     EventDetailComponent,
     EventListComponent,

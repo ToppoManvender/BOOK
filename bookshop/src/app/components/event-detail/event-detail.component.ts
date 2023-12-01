@@ -28,9 +28,10 @@ export class EventDetailComponent implements OnInit {
     });
 
     this.eventService.getEvent(this.eventId).subscribe((res) => {
+      const dateTimeString = new Date(res['dateTime']).toISOString().slice(0, -1);
       this.updateForm.setValue({
         name: res['name'],
-        dateTime: res['dateTime'],
+        dateTime: dateTimeString,
       });
     });
   }
@@ -39,24 +40,25 @@ export class EventDetailComponent implements OnInit {
 
   onUpdate(): void {
     if (this.updateForm.valid) {
-      this.eventService
-        .updateEvent(this.eventId, this.updateForm.value)
-        .subscribe(
-          (res) => {
-            console.log('updated');
-            this.toastr.success('Data updated successfully!', 'Success', {
-              positionClass: 'toast-bottom-right',
-              closeButton: true,
-              timeOut: 5000,
-            });
-            this.ngZone.run(() => {
-              this.router.navigateByUrl('/event-list');
-            });
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
+      const updatedEvent = this.updateForm.value;
+      updatedEvent.dateTime = new Date(updatedEvent.dateTime + 'Z');
+
+      this.eventService.updateEvent(this.eventId, updatedEvent).subscribe(
+        (res) => {
+          console.log('updated');
+          this.toastr.success('Data updated successfully!', 'Success', {
+            positionClass: 'toast-bottom-right',
+            closeButton: true,
+            timeOut: 5000,
+          });
+          this.ngZone.run(() => {
+            this.router.navigateByUrl('/event-list');
+          });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     } else {
       this.showAlert();
     }

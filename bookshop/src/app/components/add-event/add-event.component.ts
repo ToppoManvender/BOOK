@@ -37,7 +37,7 @@ export class AddEventComponent implements OnInit {
             closeButton: true,
             timeOut: 5000,
           });
-          this.ngZone.run(() => this.router.navigateByUrl('/events-list'));
+          this.ngZone.run(() => this.router.navigateByUrl('/event-list'));
         },
         (err) => {
           console.log(err);
