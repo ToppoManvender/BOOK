@@ -12,8 +12,13 @@ import { EventDetailComponent } from './components/event-detail/event-detail.com
 import { EventListComponent } from './components/event-list/event-list.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthConfigModule } from './auth/auth-config.module';
+import { AppRoutingModule } from './app-routing.module';
+import  NavbarComponent from './navbar/navbar.component';
+import { HomeComponent } from './components/home/home.component';
 
 const appRoutes: Routes = [
+  {path:  'home' , component:HomeComponent },
   { path: 'add-book', component: AddBookComponent },
   { path: 'books-list', component: BooksListComponent },
   { path: 'edit-book/:id', component: BookDetailComponent },
@@ -31,12 +36,18 @@ const appRoutes: Routes = [
     AddEventComponent,
     EventDetailComponent,
     EventListComponent,
+    NavbarComponent,
+    HomeComponent,
+
+    
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
+    AuthConfigModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({}),

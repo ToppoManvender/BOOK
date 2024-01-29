@@ -11,10 +11,12 @@ let Event = new Schema(
       type: Date,
       required: true,
     },
+    
   },
   {
-    collection: "Event",
-  }
+    timestamps:true
+  },
+  
 );
 
 module.exports = mongoose.model("Event", Event);

@@ -30,7 +30,7 @@ export class AddBookComponent implements OnInit {
 
   onSubmit(): any {
     if (this.bookForm.valid) {
-      this.crudService.AddBook(this.bookForm.value).subscribe(
+      this.crudService.addBook(this.bookForm.value).subscribe(
         () => {
           console.log('Data added successfully');
           this.toastr.success('Data added successfully!', 'Success', {

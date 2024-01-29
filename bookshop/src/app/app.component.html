@@ -4,15 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="app.component.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Your+Font&display=swap"
-      rel="stylesheet"
-    />
+   
     <title>Book Store Using MEAN Stack</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-      <a class="navbar-brand">Book Store</a>
+      <a class="navbar-brand" routerLink="/home">𝘽𝙤𝙤𝙠 𝙎𝙩𝙤𝙧𝙚 </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -39,18 +36,27 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/event-list">Event List</a>
           </li>
-        </ul>
-        <span class="navbar-text text-bold"></span>
-      </div>
-    </nav>
+      </ul>
 
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4">Book Store Using MEAN Stack</h1>
-        <p class="lead"></p>
-      </div>
+ 
+
+    <!-- <div class="ml-auto"> 
+      <button class="vvd" (click)="toggleAuth()" id="authToggle" data-cy="authToggle">
+        <span>{{ isAuthenticated ? 'Logout' : 'Sign out' }}</span>
+      </button>
     </div>
+     -->
+    
+  </div>
+</nav>
 
-    <router-outlet></router-outlet>
-  </body>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Book Store Using MEAN Stack</h1>
+      <p class="lead"></p>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</body>
 </html>

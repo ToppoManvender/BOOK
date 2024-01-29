@@ -10,11 +10,13 @@ import { ToastrService } from 'ngx-toastr';
 export class BooksListComponent implements OnInit {
   Books: any = [];
   searchQuery: string = '';
+  bookAvailability: any[] = [];
 
   constructor(private crudApi: CrudService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadBooks();
+    this.loadBookAvailability();
   }
 
   loadBooks(): void {
@@ -24,12 +26,24 @@ export class BooksListComponent implements OnInit {
     });
   }
 
-  filteredBooks(): any[] {
-    return this.Books.filter(
-      (book: { name: string; author: string }) =>
-        book.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        book.author.toLowerCase().includes(this.searchQuery.toLowerCase())
+  loadBookAvailability(): void {
+    this.crudApi.getBookAvailability().subscribe(
+      (response) => {
+        this.bookAvailability = response;
+      },
+      (error) => {
+        console.error('Error fetching book availability', error);
+      }
     );
+  }
+
+  filteredBooks(): any[] {
+    return this.Books.filter((book: { name?: string; author?: string }) => {
+      return (
+        (book.name && book.name.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
+        (book.author && book.author.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      );
+    });
   }
 
   delete(id: any, i: any) {

@@ -10,7 +10,7 @@ import { EventDetailComponent } from './components/event-detail/event-detail.com
 const bookRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'add-book',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {

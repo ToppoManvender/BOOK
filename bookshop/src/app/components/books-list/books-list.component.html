@@ -8,7 +8,7 @@
         type="text"
         class="form-control"
         [(ngModel)]="searchQuery"
-        placeholder="Search by Name or Author"
+        placeholder="Search by Book Name or Author Name"
       />
     </div>
   </div>
@@ -20,6 +20,7 @@
           <th scope="col">Name</th>
           <th scope="col">Price</th>
           <th scope="col">Author</th>
+          <th scope="col">Availability</th> 
           <th class="text-center" scope="col">Action</th>
         </tr>
       </thead>
@@ -28,6 +29,10 @@
           <td>{{ book.name }}</td>
           <td>{{ book.price }}</td>
           <td>{{ book.author }}</td>
+          <td>
+            <h3>{{ book.title }}</h3>
+            <p>{{ book.availability ? 'Available' : 'Not Available' }}</p>
+          </td>
           <td class="text-center">
             <button
               class="btn btn-sm btn-primary mr-2"

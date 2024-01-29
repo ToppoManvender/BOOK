@@ -11,6 +11,13 @@ let Book = new Schema(
     author: {
       type: String,
     },
+    availability: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  {
+    timestamps:true
   },
   {
     collection: "books",

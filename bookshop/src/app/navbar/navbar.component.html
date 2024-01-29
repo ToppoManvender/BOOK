@@ -1,0 +1,38 @@
+<nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/"></a>
+      <div class="navbar-collapse" id="basic-navbar-nav">
+        <div class="nav-options">
+          <div class="navbar-nav ms-auto">
+            <span class="nav-item">
+              <a href="/" class="nav-link-home">Home</a>
+            </span>
+            <div class="nav-item" (click)="openSwaggerDropdown()">
+              <a class="nav-link">Swagger ˅ </a>
+              <!-- <app-dropdown [isOpen]="isSwaggerDropdownOpen"></app-dropdown> -->
+            </div>
+            <span class="nav-item">
+              <a (click)="openDocs()" class="nav-link">Documents</a>
+            </span>
+          </div>
+  
+          <span class="navbar-text">
+            <span class="social-icon">
+             
+            </span>
+            <div *ngIf="!isAuthenticated">
+              <button class="vvd" (click)="login()" id="login" data-cy="login">
+                <span>Sign In</span>
+              </button>
+            </div>
+            <div *ngIf="isAuthenticated">
+              <button class="vvd" (click)="logout()" id="logout" data-cy="logout">
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+  

@@ -49,5 +49,14 @@ bookRoute.route("/delete-book/:id").delete(async (req, res, next) => {
     next(error);
   }
 });
+bookRoute.get('/books/availability', async (req, res) => {
+  try {
+    const books = await Book.find({}, 'title availability');
+    res.status(200).json(books);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 module.exports = bookRoute;
